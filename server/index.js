@@ -8,6 +8,7 @@ puppeteer.launch({ headless: false }).then(browser => {
   let currentApp = app;
   const port = process.env.PORT || 3000
   server.listen(port);
+  console.log(`Server listening at port ${port}`);
 
   if (module.hot) {
     module.hot.accept('./server', () => {
