@@ -2,7 +2,7 @@ import http from 'http';
 import getApp from './server';
 import puppeteer from 'puppeteer';
 
-puppeteer.launch({ headless: false }).then(browser => {
+puppeteer.launch().then(browser => {
   let app = getApp(browser);
   const server = http.createServer(app);
   let currentApp = app;

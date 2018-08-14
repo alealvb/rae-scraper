@@ -6,14 +6,34 @@ class Rae {
   }
 
   async search(word) {
-    const page = await this.browser.newPage();
-    await page.goto(`${Rae.baseUrl}?w=${word}&m=30`, { waitUntil: 'networkidle2' });
-    const definitions = await page.evaluate(this.scrape);
+    let definitions;
+    const page = await this.resolveLink(`${Rae.baseUrl}?w=${word}`);
+    const [hasArticle, otherLink] = await page.evaluate(() => {
+      return [document.querySelector('article'),
+      document.querySelector('#enclave + div a')]
+    });
+    if (hasArticle) {
+      definitions = await page.evaluate(this.scrapeDefinitions);
+    } else if (otherLink) {
+      await Promise.all([
+        page.waitForNavigation({ waitUntil: 'networkidle2' }),
+        page.click('#enclave + div a'),
+      ]);
+      definitions = await page.evaluate(this.scrapeDefinitions);
+    }
     page.close();
-    return definitions;
+    if (definitions) return definitions;
+    return 'Error: word not found';
   }
 
-  scrape = () => {
+  // visits a url and return
+  async resolveLink(url) {
+    const page = await this.browser.newPage();
+    await page.goto(url, { waitUntil: 'networkidle2' });
+    return page;
+  }
+
+  scrapeDefinitions = () => {
     const defs = [...document.querySelectorAll('article p')];
     defs.forEach(p => {
       p.querySelectorAll('abbr').forEach(abbr => {
