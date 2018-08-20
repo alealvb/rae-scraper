@@ -6,7 +6,7 @@
   "author": "Alejandro Alvarez <alejandroalvarez@devtohack.com>",
   "license": "MIT",
   "scripts": {
-    "start": "rm -rf ./build && webpack"
+    "start": "rm -rf ./.build && webpack"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "express": "^4.16.3",
+    "mongoose": "^5.2.9",
     "puppeteer": "^1.7.0"
   }
 }

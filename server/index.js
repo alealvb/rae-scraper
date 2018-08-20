@@ -1,8 +1,9 @@
 import http from 'http';
-import getApp from './server';
 import puppeteer from 'puppeteer';
+import getApp from './server';
+import db from './db/db';
 
-puppeteer.launch().then(browser => {
+puppeteer.launch({ headless: false }).then(browser => {
   let app = getApp(browser);
   const server = http.createServer(app);
   let currentApp = app;

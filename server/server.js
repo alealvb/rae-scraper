@@ -1,5 +1,5 @@
 import express from 'express';
-import Rae from './rae';
+import Rae from './components/rae';
 
 const app = express();
 let rae;
