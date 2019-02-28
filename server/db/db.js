@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-mongoose.connect('mongodb://localhost/rae-api');
+mongoose.connect('mongodb://localhost/rae-api', { useNewUrlParser: true });
 
 const db = mongoose.connection;
 

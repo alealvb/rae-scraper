@@ -33,13 +33,20 @@ class Rae {
           const linkDefinitions = await linkPage.evaluate(this.scrapeDefinitions);
           definitions = [...definitions, ...linkDefinitions];
         } else {
-          this.search(linkWords[0]).catch(err => console.log(err));
+          try {
+            await this.search(linkWords[0]);
+          } catch (error) {
+            console.log(err)
+          }
         }
-        linkPage.close();
+        // linkPage.close();
       }
     }
-    page.close();
-    this.saveWord(word, definitions, page.url());
+    // await page.close();
+    if (definitions.length) {
+      this.saveWord(word, definitions, page.url())
+        .catch(err => console.log(err));
+    }
     if (definitions) return definitions;
     return 'Error: word not found';
   }
@@ -52,7 +59,7 @@ class Rae {
       return header.innerText.split(',');
     });
     const word = words[0];
-    words = words.map(text => text.trim() === word ? text : this.mergeWord(word, text.trim()));
+    words = words.map(text => text.trim() === word ? word : this.mergeWord(word, text.trim()));
     return words;
   }
 

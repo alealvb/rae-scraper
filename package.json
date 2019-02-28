@@ -6,19 +6,24 @@
   "author": "Alejandro Alvarez <alejandroalvarez@devtohack.com>",
   "license": "MIT",
   "scripts": {
-    "start": "rm -rf ./.build && webpack"
+    "start": "rm -rf ./.build && webpack",
+    "test": "babel-node ./server/components/file_reader/index.js"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",
     "babel-preset-env": "^1.7.0",
     "babel-preset-stage-0": "^6.24.1",
+    "file-loader": "^2.0.0",
     "start-server-webpack-plugin": "^2.2.5",
+    "url-loader": "^1.1.1",
     "webpack": "^4.16.5",
     "webpack-cli": "^3.1.0",
     "webpack-node-externals": "^1.7.2"
   },
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
     "express": "^4.16.3",
     "mongoose": "^5.2.9",
     "puppeteer": "^1.7.0"
