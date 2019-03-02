@@ -5,10 +5,9 @@ import FileReader from '../components/file_reader';
 import wordsFile from './words.txt';
 
 const sleep = async (ms = 0) => new Promise(resolve => setTimeout(resolve, ms));
+const browserLimit = process.env.BROWSER_LIMIT || 2;
 
-
-async function* browserFactory() {
-  const browserLimit = 2;
+async function* browserFactory() {  
   let browsers = [];
   while (true) {
     browsers = browsers.filter(brows => brows.process().signalCode === null)
